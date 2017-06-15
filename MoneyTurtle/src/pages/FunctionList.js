@@ -481,7 +481,7 @@ export default class FunctionList extends Component {
 
           {this._renderGrabMoney()}
           <View style={{flexDirection:'row',marginLeft:15,marginRight:15,justifyContent:'space-between'}}>
-            <Button onClick={()=> this._openApp("jinqiangui://","您没有安装微信")}
+            <Button onClick={()=> this._openApp("weixin://","您没有安装微信")}
             style={{marginTop:19.5,width:(width-30-47.5)/2,height:47}} className="btn" type="primary">启动微信</Button>
             <Button onClick={()=>this._openApp("mqq://","您没有安装QQ")} style={{marginTop:19.5,width:(width-30-47.5)/2,height:47}} className="btn" type="primary">启动QQ</Button>
           </View>

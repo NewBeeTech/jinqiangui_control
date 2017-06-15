@@ -54,7 +54,6 @@ export default class AboutUsPage extends Component {
 
   async _changeQQ(qq){
     try{
-
       let response = await fetch('http:47.94.133.192:7001/api/jinqiangui/qq', {
         method: 'POST',
         body: JSON.stringify({
@@ -105,12 +104,7 @@ export default class AboutUsPage extends Component {
           </View>
           <View style={{width:width,height:height-44-64,backgroundColor:'rgba(245,245,249,1)',alignItems:'center'}}>
             <Image style={{width:95.5,height:95.5,marginTop:53}} source={require('../images/invalidName.png')}/>
-            {this.state.qq && <Text style={{fontSize:14,marginTop:28.5}}>官方唯一授权联系QQ:<Text onPress={()=>{
-                prompt('更改QQ', '请输入新QQ', [
-                { text: '取消' },
-                { text: '提交', onPress: value => this._changeQQ(value) },
-                ], 'plain-text')
-            }} style={{color:'rgb(208,2,27)',fontSize:14}}>{this.state.qq}</Text></Text>}
+            {this.state.qq && <Text style={{fontSize:14,marginTop:28.5}}>官方唯一授权联系QQ:<Text style={{color:'rgb(208,2,27)',fontSize:14}}>{this.state.qq}</Text></Text>}
             {this._renderTable([['产品','时间','价格'],['直播视频通话演示及教程','5分钟','10元'],['激活授权码','30天','499元'],['激活授权码','180天','899元']])}
           </View>
         </View>
