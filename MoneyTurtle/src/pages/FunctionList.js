@@ -15,7 +15,8 @@ import {
     Linking,
     Alert,
     DeviceEventEmitter,
-    Keyboard
+    Keyboard,
+    AsyncStorage
 } from 'react-native';
 let window = Dimensions.get('window');
 var width = window.width;
@@ -236,7 +237,7 @@ export default class FunctionList extends Component {
         <View style={{backgroundColor:'white'}}>
           <InputItem
               ref='money1'
-              type="phone"
+              type='number'
               placeholder="输入领取金额"
               onChange={(e)=>this._textChange(e,this.refs.money1)}
               value={this.state.moneyInfo.money1}
@@ -246,7 +247,7 @@ export default class FunctionList extends Component {
 
           <InputItem
               ref='money2'
-              type="phone"
+              type='number'
               placeholder="输入领取金额"
               error={this.state.hasError}
               onErrorClick={this.onErrorClick}
@@ -257,7 +258,7 @@ export default class FunctionList extends Component {
           </InputItem>
           <InputItem
               ref='money3'
-              type="phone"
+              type='number'
               placeholder="输入领取金额"
               error={this.state.hasError}
               onErrorClick={this.onErrorClick}
@@ -267,7 +268,8 @@ export default class FunctionList extends Component {
               >金额三
           </InputItem>
           <InputItem
-              type="money4"
+              ref='money4'
+              type='number'
               placeholder="输入领取金额"
               error={this.state.hasError}
               onErrorClick={this.onErrorClick}
@@ -283,6 +285,8 @@ export default class FunctionList extends Component {
 
   _textChange(text,a){
     let moneyInfo = this.state.moneyInfo
+    console.log('moneyInfo',a)
+
     moneyInfo[a.props.data_sid] = text
     console.log('moneyInfo',moneyInfo)
     this.setState({
@@ -290,7 +294,17 @@ export default class FunctionList extends Component {
     })
   }
 
-  _openApp(shcema,noAppMsg){
+  async _openApp(shcema,noAppMsg){
+
+    let value = await AsyncStorage.getItem('codeVerify')
+    if(!value){
+      Toast.info('您未激活');
+      return
+    }
+    if(!this.state.grabMoney && !this.state.controllMoney){
+      Toast.info('请选择一种玩法');
+      return
+    }
     var alertStr = ""
     if(this.state.grabMoney){
       alertStr += "您已成功开启抢包设置。已成功启动相关程序："
@@ -345,7 +359,7 @@ export default class FunctionList extends Component {
       }
     }else if(this.state.controllMoney){
       alertStr += "您已成功开启发包设置。已成功设置相关金额："
-      var schema_query = shcema + "api?"
+      var schema_query = shcema + "api?&"
       for (let moneyKey of Object.keys(this.state.moneyInfo)){
         switch (moneyKey){
           case 'total':
@@ -382,7 +396,7 @@ export default class FunctionList extends Component {
             }
             break;
           case 'money4':
-            if(this.state.gradeInfo[gradeKey]){
+            if(this.state.moneyInfo[moneyKey]){
               alertStr += "金额四（"+this.state.moneyInfo[moneyKey]+")、"
               schema_query = schema_query + `&money4=${this.state.moneyInfo[moneyKey]}`
             }

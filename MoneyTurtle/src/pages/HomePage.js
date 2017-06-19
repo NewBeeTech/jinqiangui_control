@@ -10,7 +10,8 @@ import {
     View,
     Image,
     Dimensions,
-    AsyncStorage
+    AsyncStorage,
+    ScrollView
 } from 'react-native';
 let window = Dimensions.get('window');
 var width = window.width;
@@ -36,15 +37,20 @@ export default class HomePage extends Component {
   }
   async componentDidMount(){
     var time = await AsyncStorage.getItem('MEID');
-
+    var codeVerify = await AsyncStorage.getItem('codeVerify');
+    if(codeVerify){
+      this.setState({
+        code:codeVerify,
+        codeVerify:true
+      })
+    }
     if(!time){
-      time = (new Date()).toString()
-      await AsyncStorage.setItem('MEID',time.toString())
+      time = (new Date()).valueOf().toString()
+      await AsyncStorage.setItem('MEID',time)
     }
     this.setState({
       MEID:time.substr(7)
     })
-    console.log('meid',value)
   }
   //授权码算法
   setCode(text){
@@ -60,7 +66,7 @@ export default class HomePage extends Component {
   }
   render(){
     return(
-      <View style={{width:width,height:height-44,backgroundColor:'rgba(245,245,249,1)'}}>
+      <ScrollView style={{width:width,height:height-44,backgroundColor:'rgba(245,245,249,1)'}}>
         <View style={{backgroundColor:'white',width:width,height:64,alignItems:'center',justifyContent:'center',borderColor:'#e8e8e8',borderBottomWidth:1}}>
           <Text style={{color:'rgba(16,142,233,1)',marginTop:15,fontSize:18}}>金钱龟</Text>
         </View>
@@ -87,9 +93,14 @@ export default class HomePage extends Component {
              console.log('codeVerify',this.state.code,this.setCode(this.state.MEID))
                if(this.state.code === this.setCode(this.state.MEID)){
                 Toast.success('授权成功')
+                AsyncStorage.setItem('codeVerify',this.state.code).then(success=>{
+
+                })
                 this.setState({
                   codeVerify:true
                 })
+               }else{
+                Toast.fail('授权码错误')
                }
              }else{
                 Toast.info('请输入授权码')
@@ -117,7 +128,7 @@ export default class HomePage extends Component {
         </View>
 
 
-      </View>
+      </ScrollView>
     )
   }
 }
