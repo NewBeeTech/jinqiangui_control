@@ -23,18 +23,18 @@ var width = window.width;
 var height = window.height;
 export default class FunctionList extends Component {
 
-  componentDidMount(){
-    Keyboard.addListener('keyboardWillShow', (e)=>this.updateKeyboardSpace(e));
-  }
-
-  componentWillUnmount(){
-    Keyboard.removeAllListeners()
-  }
-
-  updateKeyboardSpace(e){
-    let scrollView = this.refs.scrollView
-    scrollView.scrollTo({x:0,y:e.startCoordinates.screenY - 300 ,animated:true})
-  }
+  //componentDidMount(){
+  //  Keyboard.addListener('keyboardWillShow', (e)=>this.updateKeyboardSpace(e));
+  //}
+  //
+  //componentWillUnmount(){
+  //  Keyboard.removeAllListeners()
+  //}
+  //
+  //updateKeyboardSpace(e){
+  //  let scrollView = this.refs.scrollView
+  //  scrollView.scrollTo({x:0,y:e.startCoordinates.screenY - 300 ,animated:true})
+  //}
 
   //resetKeyboardSpace(){
   //  let scrollView = this.refs.scrollView

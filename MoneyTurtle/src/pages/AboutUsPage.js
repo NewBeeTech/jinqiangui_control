@@ -54,9 +54,8 @@ export default class AboutUsPage extends Component {
 
   async _changeQQ(qq){
     try{
-
-      let response = await fetch('http:47.94.133.192:7001/api/jinqiangui/qq', {
-        method: 'PUT',
+      let response = await fetch('http://47.94.133.192:7001/api/jinqiangui/qq/'+qq, {
+        method: 'POST',
         body: JSON.stringify({
           qq:qq
         })
@@ -64,8 +63,12 @@ export default class AboutUsPage extends Component {
       let responseJson = await response.json()
       if(responseJson.code === 0){
         Toast.success('修改成功')
+        this.setState({
+          qq:qq
+        })
       }
     }catch(e){
+      console.log('e',e)
       Toast.fail('网络超时')
     }
 

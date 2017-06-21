@@ -49,7 +49,7 @@ export default class HomePage extends Component {
       await AsyncStorage.setItem('MEID',time)
     }
     this.setState({
-      MEID:time.substr(7)
+      MEID:'235512'
     })
   }
   //授权码算法
@@ -60,7 +60,7 @@ export default class HomePage extends Component {
     var last = text.substr(4)
     let new_first =  (parseInt(last) + 67).toString()
     let new_mid = mid[1]+mid[0]
-    let new_last = (parseInt(last) + 25).toString()
+    let new_last = (parseInt(first) + 25).toString()
     console.log('code',new_first[0] + new_first[1] + new_mid + new_last[0] + new_first[1])
     return new_first[0] + new_first[1] + new_mid + new_last[0] + new_first[1]
   }
