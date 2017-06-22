@@ -211,7 +211,7 @@ export default class FunctionList extends Component {
         <View style={{backgroundColor:'white'}}>
           <InputItem
               ref='total'
-              type="phone"
+              type='number'
               placeholder="input money"
               onChange={(e)=>this._textChange(e,this.refs.total)}
               value={this.state.moneyInfo.total}
@@ -307,6 +307,7 @@ export default class FunctionList extends Component {
     }
     var alertStr = ""
     if(this.state.grabMoney){
+      var schema_query = shcema + "api?&"
       alertStr += "您已成功开启抢包设置。已成功启动相关程序："
       for (let gradeKey of Object.keys(this.state.gradeInfo)){
         switch (gradeKey){
