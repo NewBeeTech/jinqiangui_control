@@ -49,20 +49,24 @@ export default class HomePage extends Component {
       await AsyncStorage.setItem('MEID',time)
     }
     this.setState({
-      MEID:'235512'
+      MEID:time
     })
   }
   //授权码算法
   setCode(text){
     //首位四个数字分别+25 +67 然后交换位置，中间两个数字颠倒位数
-    var first = text.substr(0,2)
-    var mid = text.substr(2,4)
-    var last = text.substr(4)
-    let new_first =  (parseInt(last) + 67).toString()
-    let new_mid = mid[1]+mid[0]
-    let new_last = (parseInt(first) + 25).toString()
-    console.log('code',new_first[0] + new_first[1] + new_mid + new_last[0] + new_first[1])
-    return new_first[0] + new_first[1] + new_mid + new_last[0] + new_first[1]
+    // var first = text.substr(0,2)
+    // var mid = text.substr(2,4)
+    // var last = text.substr(4)
+    // let new_first =  (parseInt(last) + 67).toString()
+    // let new_mid = mid[1]+mid[0]
+    // let new_last = (parseInt(first) + 25).toString()
+    // console.log('code',new_first[0] + new_first[1] + new_mid + new_last[0] + new_first[1])
+    // return new_first[0] + new_first[1] + new_mid + new_last[0] + new_first[1]
+    const first_two = text.slice(0, 2);
+    const first_one = text.slice(0, 1);
+    const last_two = text.slice(text.length-2);
+    return `${Number(last_two)*3}${Number(first_two)*2}19${first_one}`;
   }
   render(){
     return(
@@ -90,7 +94,7 @@ export default class HomePage extends Component {
         <View style={{marginLeft:15,marginRight:15}}>
           <Button style={{marginTop:19.5}} disabled={this.state.codeVerify} className="btn" type="primary" onClick={()=>{
              if(this.state.code){
-             console.log('codeVerify',this.state.code,this.setCode(this.state.MEID))
+             console.warn('codeVerify',this.state.code,this.setCode(this.state.MEID))
                if(this.state.code === this.setCode(this.state.MEID)){
                 Toast.success('授权成功')
                 AsyncStorage.setItem('codeVerify',this.state.code).then(success=>{
