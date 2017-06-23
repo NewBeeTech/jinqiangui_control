@@ -294,6 +294,8 @@ export default class FunctionList extends Component {
     var alertStr = ""
     if(this.state.grabMoney){
       alertStr += "您已成功开启抢包设置。已成功启动相关程序："
+      var schema_query = shcema + "api?"
+
       for (let gradeKey of Object.keys(this.state.gradeInfo)){
         switch (gradeKey){
           case 'fastGrad':
