@@ -51,6 +51,7 @@ export default class FunctionList extends Component {
       controllMoney:false,
       grabMoney:false,
       fastGrad:false,
+      moneysKey:['total','count','money1','money2','money3','money4'],
       gradeInfo:{
 
       },
@@ -210,22 +211,18 @@ export default class FunctionList extends Component {
 
         <View style={{backgroundColor:'white'}}>
           <InputItem
-              ref='total'
               type='number'
               placeholder="input money"
-              onChange={(e)=>this._textChange(e,this.refs.total)}
+              onChange={(e)=>this._textChange(e,0)}
               value={this.state.moneyInfo.total}
-              data_sid='total'
               >总金额
           </InputItem>
 
           <InputItem
-              ref='count'
               type="phone"
               placeholder="input count"
-              onChange={(e)=>this._textChange(e,this.refs.count)}
+              onChange={(e)=>this._textChange(e,1)}
               value={this.state.moneyInfo.count}
-              data_sid='count'
               >包数
           </InputItem>
         </View>
@@ -236,46 +233,32 @@ export default class FunctionList extends Component {
 
         <View style={{backgroundColor:'white'}}>
           <InputItem
-              ref='money1'
               type='number'
               placeholder="输入领取金额"
-              onChange={(e)=>this._textChange(e,this.refs.money1)}
+              onChange={(e)=>this._textChange(e,2)}
               value={this.state.moneyInfo.money1}
-              data_sid="money1"
               >金额一
           </InputItem>
 
           <InputItem
-              ref='money2'
               type='number'
               placeholder="输入领取金额"
-              error={this.state.hasError}
-              onErrorClick={this.onErrorClick}
-              onChange={(e)=>this._textChange(e,this.refs.money2)}
+              onChange={(e)=>this._textChange(e,3)}
               value={this.state.moneyInfo.money2}
-              data_sid='money2'
               >金额二
           </InputItem>
           <InputItem
-              ref='money3'
               type='number'
               placeholder="输入领取金额"
-              error={this.state.hasError}
-              onErrorClick={this.onErrorClick}
-              onChange={(e)=>this._textChange(e,this.refs.money3)}
+              onChange={(e)=>this._textChange(e,4)}
               value={this.state.moneyInfo.money3}
-              data_sid='money3'
               >金额三
           </InputItem>
           <InputItem
-              ref='money4'
               type='number'
               placeholder="输入领取金额"
-              error={this.state.hasError}
-              onErrorClick={this.onErrorClick}
-              onChange={(e)=>this._textChange(e,this.refs.money4)}
+              onChange={(e)=>this._textChange(e,5)}
               value={this.state.moneyInfo.money4}
-              data_sid='money4'
               >金额四
           </InputItem>
         </View>
@@ -285,9 +268,7 @@ export default class FunctionList extends Component {
 
   _textChange(text,a){
     let moneyInfo = this.state.moneyInfo
-    console.log('moneyInfo',a)
-
-    moneyInfo[a.props.data_sid] = text
+    moneyInfo[this.state.moneysKey[a]] = text
     console.log('moneyInfo',moneyInfo)
     this.setState({
       moneyInfo:moneyInfo

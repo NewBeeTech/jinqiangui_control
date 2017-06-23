@@ -49,7 +49,7 @@ export default class HomePage extends Component {
       await AsyncStorage.setItem('MEID',time)
     }
     this.setState({
-      MEID:time
+      MEID:time.substr(7)
     })
   }
   //授权码算法
