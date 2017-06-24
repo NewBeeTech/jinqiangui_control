@@ -7,12 +7,12 @@
 import React, { Component } from 'react';
 import {InputItem, Modal, Button, WingBlank, WhiteSpace, Toast } from 'antd-mobile';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    Dimensions
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Dimensions
 } from 'react-native';
 let window = Dimensions.get('window');
 var width = window.width;
@@ -42,6 +42,7 @@ export default class AboutUsPage extends Component {
       let response = await fetch('http:47.94.133.192:7001/api/jinqiangui/qq')
       let responseJson = await response.json()
       if(responseJson.code === 0){
+        console.log('res',responseJson)
         this.setState({
           qq:responseJson.data
         })
@@ -54,7 +55,7 @@ export default class AboutUsPage extends Component {
 
   async _changeQQ(qq){
     try{
-      let response = await fetch('http:47.94.133.192:7001/api/jinqiangui/qq', {
+      let response = await fetch('http://47.94.133.192:7001/api/jinqiangui/qq/'+qq, {
         method: 'POST',
         body: JSON.stringify({
           qq:qq
@@ -63,8 +64,12 @@ export default class AboutUsPage extends Component {
       let responseJson = await response.json()
       if(responseJson.code === 0){
         Toast.success('修改成功')
+        this.setState({
+          qq:qq
+        })
       }
     }catch(e){
+      console.log('e',e)
       Toast.fail('网络超时')
     }
 
