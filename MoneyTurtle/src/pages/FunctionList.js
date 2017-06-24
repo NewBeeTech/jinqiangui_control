@@ -5,35 +5,36 @@
 import React, { Component } from 'react';
 import { InputItem, Toast , Button , List , Switch } from 'antd-mobile';
 import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    Dimensions,
-    ScrollView,
-    Linking,
-    Alert,
-    DeviceEventEmitter,
-    Keyboard
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Dimensions,
+  ScrollView,
+  Linking,
+  Alert,
+  DeviceEventEmitter,
+  Keyboard,
+  AsyncStorage
 } from 'react-native';
 let window = Dimensions.get('window');
 var width = window.width;
 var height = window.height;
 export default class FunctionList extends Component {
 
-  componentDidMount(){
-    Keyboard.addListener('keyboardWillShow', (e)=>this.updateKeyboardSpace(e));
-  }
-
-  componentWillUnmount(){
-    Keyboard.removeAllListeners()
-  }
-
-  updateKeyboardSpace(e){
-    let scrollView = this.refs.scrollView
-    scrollView.scrollTo({x:0,y:e.startCoordinates.screenY - 300 ,animated:true})
-  }
+  //componentDidMount(){
+  //  Keyboard.addListener('keyboardWillShow', (e)=>this.updateKeyboardSpace(e));
+  //}
+  //
+  //componentWillUnmount(){
+  //  Keyboard.removeAllListeners()
+  //}
+  //
+  //updateKeyboardSpace(e){
+  //  let scrollView = this.refs.scrollView
+  //  scrollView.scrollTo({x:0,y:e.startCoordinates.screenY - 300 ,animated:true})
+  //}
 
   //resetKeyboardSpace(){
   //  let scrollView = this.refs.scrollView
@@ -50,6 +51,7 @@ export default class FunctionList extends Component {
       controllMoney:false,
       grabMoney:false,
       fastGrad:false,
+      moneysKey:['total','count','money1','money2','money3','money4'],
       gradeInfo:{
 
       },
@@ -68,25 +70,25 @@ export default class FunctionList extends Component {
                 <Text style={{fontSize:17,marginRight:18}}>秒抢开关</Text>
                 <Switch
                     onChange={(checked) => {
-                    let gradeInfo = this.state.gradeInfo
-                    gradeInfo.fastGrad = checked
-                    this.setState({
-                  gradeInfo:gradeInfo
-                }) }}
+                      let gradeInfo = this.state.gradeInfo
+                      gradeInfo.fastGrad = checked
+                      this.setState({
+                        gradeInfo:gradeInfo
+                      }) }}
                     checked={this.state.gradeInfo.fastGrad}
-                    />
+                />
               </View>
               <View style={{flexDirection:'row',paddingTop:12.5,paddingBottom:12.5,alignItems:'center'}}>
                 <Text style={{fontSize:17,marginRight:18}}>抢最大值</Text>
                 <Switch
                     onChange={(checked) => {
-                     let gradeInfo = this.state.gradeInfo
-                    gradeInfo.gradeMax = checked
-                    this.setState({
-                  gradeInfo:gradeInfo
-                }) }}
+                      let gradeInfo = this.state.gradeInfo
+                      gradeInfo.gradeMax = checked
+                      this.setState({
+                        gradeInfo:gradeInfo
+                      }) }}
                     checked={this.state.gradeInfo.gradeMax}
-                    />
+                />
               </View>
             </View>
 
@@ -96,25 +98,25 @@ export default class FunctionList extends Component {
                 <Text style={{fontSize:17,marginRight:18}}>抢最小值</Text>
                 <Switch
                     onChange={(checked) => {
-                    let gradeInfo = this.state.gradeInfo
-                    gradeInfo.gradeMin = checked
-                    this.setState({
-                  gradeInfo:gradeInfo
-                }) }}
+                      let gradeInfo = this.state.gradeInfo
+                      gradeInfo.gradeMin = checked
+                      this.setState({
+                        gradeInfo:gradeInfo
+                      }) }}
                     checked={this.state.gradeInfo.gradeMin}
-                    />
+                />
               </View>
               <View style={{flexDirection:'row',paddingTop:12.5,paddingBottom:12.5,alignItems:'center'}}>
                 <Text style={{fontSize:17,marginRight:18}}>不抢尾包</Text>
                 <Switch
                     onChange={(checked) => {
-                    let gradeInfo = this.state.gradeInfo
-                    gradeInfo.gradeMid = checked
-                    this.setState({
-                  gradeInfo:gradeInfo
-                }) }}
+                      let gradeInfo = this.state.gradeInfo
+                      gradeInfo.gradeMid = checked
+                      this.setState({
+                        gradeInfo:gradeInfo
+                      }) }}
                     checked={this.state.gradeInfo.gradeMid}
-                    />
+                />
               </View>
             </View>
 
@@ -122,13 +124,13 @@ export default class FunctionList extends Component {
               <Text style={{fontSize:17,marginRight:18}}>自动识别避值模式</Text>
               <Switch
                   onChange={(checked) => {
-                 let gradeInfo = this.state.gradeInfo
+                    let gradeInfo = this.state.gradeInfo
                     gradeInfo.autoAnl = checked
                     this.setState({
-                  gradeInfo:gradeInfo
-                }) }}
+                      gradeInfo:gradeInfo
+                    }) }}
                   checked={this.state.gradeInfo.autoAnl}
-                  />
+              />
             </View>
 
             <Text style={{color:'rgb(208,2,27)',fontSize:14}}>规则：自动检测红包留言框内数值，领取红包时会自动避开，需设置数值位置不可出现以下哪个位置</Text>
@@ -138,25 +140,25 @@ export default class FunctionList extends Component {
                 <Text style={{fontSize:17,marginRight:18}}>前一位</Text>
                 <Switch
                     onChange={(checked) => {
-                    let gradeInfo = this.state.gradeInfo
-                    gradeInfo.beforeOne = checked
-                    this.setState({
-                  gradeInfo:gradeInfo
-                }) }}
+                      let gradeInfo = this.state.gradeInfo
+                      gradeInfo.beforeOne = checked
+                      this.setState({
+                        gradeInfo:gradeInfo
+                      }) }}
                     checked={this.state.gradeInfo.beforeOne}
-                    />
+                />
               </View>
               <View style={{flexDirection:'row',paddingTop:12.5,paddingBottom:12.5,alignItems:'center'}}>
                 <Text style={{fontSize:17,marginRight:18}}>末一位</Text>
                 <Switch
                     onChange={(checked) => {
-                    let gradeInfo = this.state.gradeInfo
-                    gradeInfo.afterOne = checked
-                    this.setState({
-                  gradeInfo:gradeInfo
-                }) }}
+                      let gradeInfo = this.state.gradeInfo
+                      gradeInfo.afterOne = checked
+                      this.setState({
+                        gradeInfo:gradeInfo
+                      }) }}
                     checked={this.state.gradeInfo.afterOne}
-                    />
+                />
               </View>
             </View>
 
@@ -165,25 +167,25 @@ export default class FunctionList extends Component {
                 <Text style={{fontSize:17,marginRight:18}}>前两位</Text>
                 <Switch
                     onChange={(checked) => {
-                    let gradeInfo = this.state.gradeInfo
-                    gradeInfo.beforeTwo = checked
-                    this.setState({
-                  gradeInfo:gradeInfo
-                }) }}
+                      let gradeInfo = this.state.gradeInfo
+                      gradeInfo.beforeTwo = checked
+                      this.setState({
+                        gradeInfo:gradeInfo
+                      }) }}
                     checked={this.state.gradeInfo.beforeTwo}
-                    />
+                />
               </View>
               <View style={{flexDirection:'row',paddingTop:12.5,paddingBottom:12.5,alignItems:'center'}}>
                 <Text style={{fontSize:17,marginRight:18}}>末两位</Text>
                 <Switch
                     onChange={(checked) => {
-                    let gradeInfo = this.state.gradeInfo
-                    gradeInfo.afterTwo = checked
-                    this.setState({
-                  gradeInfo:gradeInfo
-                }) }}
+                      let gradeInfo = this.state.gradeInfo
+                      gradeInfo.afterTwo = checked
+                      this.setState({
+                        gradeInfo:gradeInfo
+                      }) }}
                     checked={this.state.gradeInfo.afterTwo}
-                    />
+                />
               </View>
             </View>
           </View>
@@ -202,100 +204,92 @@ export default class FunctionList extends Component {
 
   _renderControllMoney(){
     return this.state.controllMoney ? (
-      <View>
-        <Text style={{marginTop:6,marginBottom:6,marginLeft:15,marginRight:15,fontSize:14,color:'rgb(136,136,136)'}}>
-          规则：5个包控制其中两个随机领取的金额，7个包控制其中三个随机领取的金额，11个以上包控制其中四个随机领取的金额相对于稳定。
-        </Text>
+        <View>
+          <Text style={{marginTop:6,marginBottom:6,marginLeft:15,marginRight:15,fontSize:14,color:'rgb(136,136,136)'}}>
+            规则：5个包控制其中两个随机领取的金额，7个包控制其中三个随机领取的金额，11个以上包控制其中四个随机领取的金额相对于稳定。
+          </Text>
 
-        <View style={{backgroundColor:'white'}}>
-          <InputItem
-              ref='total'
-              type="phone"
-              placeholder="input money"
-              onChange={(e)=>this._textChange(e,this.refs.total)}
-              value={this.state.moneyInfo.total}
-              data_sid='total'
-              >总金额
-          </InputItem>
+          <View style={{backgroundColor:'white'}}>
+            <InputItem
+                type='number'
+                placeholder="input money"
+                onChange={(e)=>this._textChange(e,0)}
+                value={this.state.moneyInfo.total}
+            >总金额
+            </InputItem>
 
-          <InputItem
-              ref='count'
-              type="phone"
-              placeholder="input count"
-              onChange={(e)=>this._textChange(e,this.refs.count)}
-              value={this.state.moneyInfo.count}
-              data_sid='count'
-              >包数
-          </InputItem>
+            <InputItem
+                type="phone"
+                placeholder="input count"
+                onChange={(e)=>this._textChange(e,1)}
+                value={this.state.moneyInfo.count}
+            >包数
+            </InputItem>
+          </View>
+
+          <Text style={{marginTop:6,marginBottom:6,marginLeft:15,marginRight:15,fontSize:14,color:'rgb(136,136,136)'}}>
+            设置四个金额（<Text style={{color:'rgb(208,2,27)',fontSize:14}}>最多设置4个，金额随机</Text>）
+          </Text>
+
+          <View style={{backgroundColor:'white'}}>
+            <InputItem
+                type='number'
+                placeholder="输入领取金额"
+                onChange={(e)=>this._textChange(e,2)}
+                value={this.state.moneyInfo.money1}
+            >金额一
+            </InputItem>
+
+            <InputItem
+                type='number'
+                placeholder="输入领取金额"
+                onChange={(e)=>this._textChange(e,3)}
+                value={this.state.moneyInfo.money2}
+            >金额二
+            </InputItem>
+            <InputItem
+                type='number'
+                placeholder="输入领取金额"
+                onChange={(e)=>this._textChange(e,4)}
+                value={this.state.moneyInfo.money3}
+            >金额三
+            </InputItem>
+            <InputItem
+                type='number'
+                placeholder="输入领取金额"
+                onChange={(e)=>this._textChange(e,5)}
+                value={this.state.moneyInfo.money4}
+            >金额四
+            </InputItem>
+          </View>
         </View>
-
-        <Text style={{marginTop:6,marginBottom:6,marginLeft:15,marginRight:15,fontSize:14,color:'rgb(136,136,136)'}}>
-          设置四个金额（<Text style={{color:'rgb(208,2,27)',fontSize:14}}>最多设置4个，金额随机</Text>）
-        </Text>
-
-        <View style={{backgroundColor:'white'}}>
-          <InputItem
-              ref='money1'
-              type="phone"
-              placeholder="输入领取金额"
-              onChange={(e)=>this._textChange(e,this.refs.money1)}
-              value={this.state.moneyInfo.money1}
-              data_sid="money1"
-              >金额一
-          </InputItem>
-
-          <InputItem
-              ref='money2'
-              type="phone"
-              placeholder="输入领取金额"
-              error={this.state.hasError}
-              onErrorClick={this.onErrorClick}
-              onChange={(e)=>this._textChange(e,this.refs.money2)}
-              value={this.state.moneyInfo.money2}
-              data_sid='money2'
-              >金额二
-          </InputItem>
-          <InputItem
-              ref='money3'
-              type="phone"
-              placeholder="输入领取金额"
-              error={this.state.hasError}
-              onErrorClick={this.onErrorClick}
-              onChange={(e)=>this._textChange(e,this.refs.money3)}
-              value={this.state.moneyInfo.money3}
-              data_sid='money3'
-              >金额三
-          </InputItem>
-          <InputItem
-              type="money4"
-              placeholder="输入领取金额"
-              error={this.state.hasError}
-              onErrorClick={this.onErrorClick}
-              onChange={(e)=>this._textChange(e,this.refs.money4)}
-              value={this.state.moneyInfo.money4}
-              data_sid='money4'
-              >金额四
-          </InputItem>
-        </View>
-      </View>
     ) : false
   }
 
   _textChange(text,a){
     let moneyInfo = this.state.moneyInfo
-    moneyInfo[a.props.data_sid] = text
+    moneyInfo[this.state.moneysKey[a]] = text
     console.log('moneyInfo',moneyInfo)
     this.setState({
       moneyInfo:moneyInfo
     })
   }
 
-  _openApp(shcema,noAppMsg){
+  async _openApp(shcema,noAppMsg){
+
+    let value = await AsyncStorage.getItem('codeVerify')
+    if(!value){
+      Toast.info('您未激活');
+      return
+    }
+    if(!this.state.grabMoney && !this.state.controllMoney){
+      Toast.info('请选择一种玩法');
+      return
+    }
     var alertStr = ""
     if(this.state.grabMoney){
+      var schema_query = shcema + "api?&"
       alertStr += "您已成功开启抢包设置。已成功启动相关程序："
-      var schema_query = shcema + "api?"
-
       for (let gradeKey of Object.keys(this.state.gradeInfo)){
         switch (gradeKey){
           case 'fastGrad':
@@ -347,7 +341,7 @@ export default class FunctionList extends Component {
       }
     }else if(this.state.controllMoney){
       alertStr += "您已成功开启发包设置。已成功设置相关金额："
-      var schema_query = shcema + "api?"
+      var schema_query = shcema + "api?&"
       for (let moneyKey of Object.keys(this.state.moneyInfo)){
         switch (moneyKey){
           case 'total':
@@ -384,7 +378,7 @@ export default class FunctionList extends Component {
             }
             break;
           case 'money4':
-            if(this.state.gradeInfo[gradeKey]){
+            if(this.state.moneyInfo[moneyKey]){
               alertStr += "金额四（"+this.state.moneyInfo[moneyKey]+")、"
               schema_query = schema_query + `&money4=${this.state.moneyInfo[moneyKey]}`
             }
@@ -400,12 +394,12 @@ export default class FunctionList extends Component {
     Alert.alert(
         "重要提示",
         alertStr,
-            [
-            {text: '关闭', onPress: () => console.log('Cancel Pressed!')},
-            {text: '启动', onPress: () =>
-                Linking.openURL(schema_query)
-            }
-            ]
+        [
+          {text: '关闭', onPress: () => console.log('Cancel Pressed!')},
+          {text: '启动', onPress: () =>
+              Linking.openURL(schema_query)
+          }
+        ]
     )
   }
 
@@ -418,47 +412,47 @@ export default class FunctionList extends Component {
           <List style={{marginTop:22.5}}>
             <List.Item
                 extra={<Switch
-                onChange={(checked) => { this.setState({
-                  mainStart:checked
-                }) }}
-                checked={this.state.mainStart}
-            />}
-                >启动开关
+                    onChange={(checked) => { this.setState({
+                      mainStart:checked
+                    }) }}
+                    checked={this.state.mainStart}
+                />}
+            >启动开关
             </List.Item>
             <List.Item
                 extra={<Switch
-                onChange={(checked) => { this.setState({
-                  preventSeal:checked
-                }) }}
-                checked={this.state.preventSeal}
-            />}
-                >防封开关
+                    onChange={(checked) => { this.setState({
+                      preventSeal:checked
+                    }) }}
+                    checked={this.state.preventSeal}
+                />}
+            >防封开关
             </List.Item>
             <List.Item
                 extra={<Switch
-                onChange={(checked) => { this.setState({
-                  preventError:checked
-                }) }}
-                checked={this.state.preventError}
-            />}
-                >防止异常
+                    onChange={(checked) => { this.setState({
+                      preventError:checked
+                    }) }}
+                    checked={this.state.preventError}
+                />}
+            >防止异常
             </List.Item>
           </List>
           <List style={{marginTop:27}}>
             <List.Item
                 extra={<Switch
-                onChange={(checked) => {
-                 if(this.state.grabMoney){
-                  Toast.info('抢包设置和发红包金额控制只能选择一个')
-                  return
-                 }
+                    onChange={(checked) => {
+                      if(this.state.grabMoney){
+                        Toast.info('抢包设置和发红包金额控制只能选择一个')
+                        return
+                      }
 
-                this.setState({
-                  controllMoney:checked
-                }) }}
-                checked={this.state.controllMoney}
-            />}
-                >发红包金额控制
+                      this.setState({
+                        controllMoney:checked
+                      }) }}
+                    checked={this.state.controllMoney}
+                />}
+            >发红包金额控制
             </List.Item>
           </List>
 
@@ -467,24 +461,24 @@ export default class FunctionList extends Component {
           <List style={{marginTop:31.5}}>
             <List.Item
                 extra={<Switch
-                onChange={(checked) => {
-                if(this.state.controllMoney){
-                  Toast.info('抢包设置和发红包金额控制只能选择一个')
-                  return
-                 }
-                this.setState({
-                  grabMoney:checked
-                }) }}
-                checked={this.state.grabMoney}
-            />}
-                >抢包设置
+                    onChange={(checked) => {
+                      if(this.state.controllMoney){
+                        Toast.info('抢包设置和发红包金额控制只能选择一个')
+                        return
+                      }
+                      this.setState({
+                        grabMoney:checked
+                      }) }}
+                    checked={this.state.grabMoney}
+                />}
+            >抢包设置
             </List.Item>
           </List>
 
           {this._renderGrabMoney()}
           <View style={{flexDirection:'row',marginLeft:15,marginRight:15,justifyContent:'space-between'}}>
             <Button onClick={()=> this._openApp("weixin://","您没有安装微信")}
-            style={{marginTop:19.5,width:(width-30-47.5)/2,height:47}} className="btn" type="primary">启动微信</Button>
+                    style={{marginTop:19.5,width:(width-30-47.5)/2,height:47}} className="btn" type="primary">启动微信</Button>
             <Button onClick={()=>this._openApp("mqq://","您没有安装QQ")} style={{marginTop:19.5,width:(width-30-47.5)/2,height:47}} className="btn" type="primary">启动QQ</Button>
           </View>
         </ScrollView>
