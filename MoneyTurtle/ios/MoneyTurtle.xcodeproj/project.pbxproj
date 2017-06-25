@@ -677,7 +677,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = con.jinqiangui.carmaster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.baichebao.TheMaster;
 				PRODUCT_NAME = MoneyTurtle;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -699,7 +699,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = con.jinqiangui.carmaster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.baichebao.TheMaster;
 				PRODUCT_NAME = MoneyTurtle;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
