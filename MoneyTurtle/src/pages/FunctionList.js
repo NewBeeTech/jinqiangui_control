@@ -397,7 +397,7 @@ export default class FunctionList extends Component {
         [
           {text: '关闭', onPress: () => console.log('Cancel Pressed!')},
           {text: '启动', onPress: () =>
-              Linking.openURL(schema_query)
+              Linking.openURL(shcema)
           }
         ]
     )
