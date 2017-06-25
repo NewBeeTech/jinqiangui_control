@@ -33,7 +33,7 @@ export default class MoneyTurtle extends Component {
 
   async _fetchData(){
     try{
-      let response = await fetch('http:47.94.133.192:7001/api/jinqiangui/pay-info')
+      let response = await fetch('http://121.196.195.151:7001/api/jinqiangui/pay-info')
       let responseJson = await response.json()
       console.log('response',responseJson)
       if(responseJson.code === 0){

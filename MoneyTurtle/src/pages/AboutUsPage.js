@@ -30,7 +30,7 @@ export default class AboutUsPage extends Component {
   _renderContent(contents){
     return contents.map((item,index)=>{
       return(
-          <Text key={item} key={item} style={{marginTop:3,fontSize:14,color:'rgb(51,51,51)'}}>
+          <Text key={item}  style={{marginTop:3,fontSize:14,color:'rgb(51,51,51)'}}>
             {item}
           </Text>
       )
@@ -39,7 +39,7 @@ export default class AboutUsPage extends Component {
 
   async _fetchData(){
     try{
-      let response = await fetch('http:47.94.133.192:7001/api/jinqiangui/qq')
+      let response = await fetch('http://121.196.195.151:7001/api/jinqiangui/qq')
       let responseJson = await response.json()
       if(responseJson.code === 0){
         console.log('res',responseJson)
@@ -55,7 +55,7 @@ export default class AboutUsPage extends Component {
 
   async _changeQQ(qq){
     try{
-      let response = await fetch('http://47.94.133.192:7001/api/jinqiangui/qq/'+qq, {
+      let response = await fetch('http://121.196.195.151:7001/api/jinqiangui/qq/'+qq, {
         method: 'POST',
         body: JSON.stringify({
           qq:qq
